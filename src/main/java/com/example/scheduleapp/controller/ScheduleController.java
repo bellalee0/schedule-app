@@ -31,4 +31,13 @@ public class ScheduleController {
         GetScheduleResponse result = scheduleService.getOneSchedule(scheduleId);
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
+
+    @PutMapping("schedules/{scheduleId}")
+    public ResponseEntity<UpdateScheduleResponse> updateSchedule(
+            @PathVariable Long scheduleId,
+            @RequestParam(name = "password") String password,
+            @RequestBody UpdateScheduleRequest request) {
+        UpdateScheduleResponse result = scheduleService.updateSchedule(scheduleId, password, request);
+        return ResponseEntity.status(HttpStatus.OK).body(result);
+    }
 }

@@ -62,4 +62,22 @@ public class ScheduleService {
                 schedule.getScheduleId(), schedule.getTitle(), schedule.getContents(), schedule.getCreator(), schedule.getCreatedAt(), schedule.getModifiedAt()
         );
     }
+
+    @Transactional
+    public UpdateScheduleResponse updateSchedule(Long scheduleId, String password, UpdateScheduleRequest request) {
+        Schedule schedule = scheduleRepository.findById(scheduleId)
+                .orElseThrow(() -> new IllegalStateException("존재하지 않는 ID입니다."));
+
+        // 비밀번호 일치
+        if (Long.parseLong(password) == schedule.getPassword()) {
+            schedule.update(request.getTitle(), request.getCreator());
+        } else {
+            throw new IllegalStateException("비밀번호가 일치하지 않습니다.");
+        }
+
+        // 업데이트된 Schedule 반환
+        return new UpdateScheduleResponse(
+                schedule.getScheduleId(),schedule.getTitle(), schedule.getContents(), schedule.getCreator(), schedule.getCreatedAt(), schedule.getModifiedAt()
+        );
+    }
 }
