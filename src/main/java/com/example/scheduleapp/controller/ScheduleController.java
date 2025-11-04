@@ -25,4 +25,10 @@ public class ScheduleController {
         List<GetScheduleResponse> result = scheduleService.getAllSchedules(creator);
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
+
+    @GetMapping("/schedules/{scheduleId}")
+    public ResponseEntity<GetScheduleResponse> getOneSchedule(@PathVariable Long scheduleId) {
+        GetScheduleResponse result = scheduleService.getOneSchedule(scheduleId);
+        return ResponseEntity.status(HttpStatus.OK).body(result);
+    }
 }

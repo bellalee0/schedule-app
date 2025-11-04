@@ -53,4 +53,13 @@ public class ScheduleService {
         // 수정일 기준 내림차순 정렬
         return result.stream().sorted(Comparator.comparing(GetScheduleResponse::getModifiedAt).reversed()).collect(Collectors.toList());
     }
+
+    @Transactional(readOnly = true)
+    public GetScheduleResponse getOneSchedule(Long scheduleId) {
+        Schedule schedule = scheduleRepository.findById(scheduleId)
+                .orElseThrow(() -> new IllegalStateException("존재하지 않는 ID입니다."));
+        return new GetScheduleResponse(
+                schedule.getScheduleId(), schedule.getTitle(), schedule.getContents(), schedule.getCreator(), schedule.getCreatedAt(), schedule.getModifiedAt()
+        );
+    }
 }
