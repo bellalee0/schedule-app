@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -75,6 +76,7 @@ public class ScheduleService {
         // 비밀번호 일치
         if (Long.parseLong(password) == schedule.getPassword()) {
             schedule.update(request.getTitle(), request.getCreator());
+            schedule.setModiefiedAt(LocalDateTime.now());
         } else {
             throw new IllegalStateException("비밀번호가 일치하지 않습니다.");
         }
