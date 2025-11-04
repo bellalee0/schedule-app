@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
 public class ScheduleService {
     private final ScheduleRepository scheduleRepository;
 
+    // 일정 생성
     @Transactional
     public CreateScheduleResponse create(CreateScheduleRequest request) {
         Schedule schedule = new Schedule(
@@ -28,6 +29,7 @@ public class ScheduleService {
         );
     }
 
+    // 일정 조회 (전체 일정 조회 or creator 입력 시 해당 creator의 일정 조회)
     @Transactional(readOnly = true)
     public List<GetScheduleResponse> getAllSchedules(String creator) {
         List<GetScheduleResponse> result = new ArrayList<>();
@@ -54,6 +56,7 @@ public class ScheduleService {
         return result.stream().sorted(Comparator.comparing(GetScheduleResponse::getModifiedAt).reversed()).collect(Collectors.toList());
     }
 
+    // 입력받은 id의 일정 조회
     @Transactional(readOnly = true)
     public GetScheduleResponse getOneSchedule(Long scheduleId) {
         Schedule schedule = scheduleRepository.findById(scheduleId)
@@ -63,6 +66,7 @@ public class ScheduleService {
         );
     }
 
+    // 입력받은 id의 일정 수정 (비밀번호 일치 시 수정, 불일치 시 롤백)
     @Transactional
     public UpdateScheduleResponse updateSchedule(Long scheduleId, String password, UpdateScheduleRequest request) {
         Schedule schedule = scheduleRepository.findById(scheduleId)
@@ -81,6 +85,7 @@ public class ScheduleService {
         );
     }
 
+    // 입력받은 id의 일정 삭제 (비밀번호 일치 시 삭제, 불일치 시 롤백)
     @Transactional
     public void deleteSchedule(Long scheduleId, String password) {
         Schedule schedule = scheduleRepository.findById(scheduleId)
