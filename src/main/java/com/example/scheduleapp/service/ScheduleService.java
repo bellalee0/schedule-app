@@ -80,4 +80,17 @@ public class ScheduleService {
                 schedule.getScheduleId(),schedule.getTitle(), schedule.getContents(), schedule.getCreator(), schedule.getCreatedAt(), schedule.getModifiedAt()
         );
     }
+
+    @Transactional
+    public void deleteSchedule(Long scheduleId, String password) {
+        Schedule schedule = scheduleRepository.findById(scheduleId)
+                .orElseThrow(() -> new IllegalStateException("존재하지 않는 ID입니다."));
+
+        // 비밀번호 일치 확인
+        if (Long.parseLong(password) == schedule.getPassword()) {
+            scheduleRepository.deleteById(scheduleId);
+        } else {
+            throw new IllegalStateException("비밀번호가 일치하지 않습니다.");
+        }
+    }
 }
