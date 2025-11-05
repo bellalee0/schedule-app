@@ -30,8 +30,8 @@ public class ScheduleController {
 
     // 입력받은 id의 일정 조회
     @GetMapping("/schedules/{scheduleId}")
-    public ResponseEntity<GetScheduleResponse> getOneSchedule(@PathVariable Long scheduleId) {
-        GetScheduleResponse result = scheduleService.getOneSchedule(scheduleId);
+    public ResponseEntity<GetOneScheduleResponse> getOneSchedule(@PathVariable Long scheduleId) {
+        GetOneScheduleResponse result = scheduleService.getOneSchedule(scheduleId);
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 

@@ -2,6 +2,7 @@ package com.example.scheduleapp.service;
 
 import com.example.scheduleapp.dto.*;
 import com.example.scheduleapp.entity.Schedule;
+import com.example.scheduleapp.repository.CommentRepository;
 import com.example.scheduleapp.repository.ScheduleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ScheduleService {
     private final ScheduleRepository scheduleRepository;
+    private final CommentRepository commentRepository;
 
     // 일정 생성
     @Transactional
@@ -59,11 +61,11 @@ public class ScheduleService {
 
     // 입력받은 id의 일정 조회
     @Transactional(readOnly = true)
-    public GetScheduleResponse getOneSchedule(Long scheduleId) {
+    public GetOneScheduleResponse getOneSchedule(Long scheduleId) {
         Schedule schedule = scheduleRepository.findById(scheduleId)
                 .orElseThrow(() -> new IllegalStateException("존재하지 않는 ID입니다."));
-        return new GetScheduleResponse(
-                schedule.getScheduleId(), schedule.getTitle(), schedule.getContents(), schedule.getCreator(), schedule.getCreatedAt(), schedule.getModifiedAt()
+        return new GetOneScheduleResponse(
+                schedule.getScheduleId(), schedule.getTitle(), schedule.getContents(), schedule.getCreator(), schedule.getCreatedAt(), schedule.getModifiedAt(), commentRepository.findByScheduleId(scheduleId)
         );
     }
 
