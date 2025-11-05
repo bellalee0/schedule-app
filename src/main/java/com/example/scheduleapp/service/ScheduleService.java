@@ -51,14 +51,13 @@ public class ScheduleService {
         List<Schedule> schedules = scheduleRepository.findAll();
 
         // TODO: 더 깔끔하게 만들 수 있을 것 같음
-        // TODO: 잘못된 사용자명 입력 시 예외 처리
         if (creator == null) {
             for (Schedule schedule : schedules) {
                 result.add(new GetScheduleResponse(
                         schedule.getScheduleId(), schedule.getTitle(), schedule.getContents(), schedule.getCreator(), schedule.getCreatedAt(), schedule.getModifiedAt()
                 ));
             }
-        } else {
+        } else if (scheduleRepository.existsByCreator(creator)) {
             for (Schedule schedule : schedules) {
                 if (schedule.getCreator().equals(creator)) {
                     result.add(new GetScheduleResponse(
@@ -66,6 +65,8 @@ public class ScheduleService {
                     ));
                 }
             }
+        } else {
+            throw new NotFoundSchedule("존재하지 않는 사용자입니다.");
         }
         return result.stream().sorted(Comparator.comparing(GetScheduleResponse::getModifiedAt).reversed()).collect(Collectors.toList());
     }
