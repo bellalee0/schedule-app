@@ -49,6 +49,7 @@ public class ScheduleService {
         List<Schedule> schedules = scheduleRepository.findAll();
 
         // TODO: 더 깔끔하게 만들 수 있을 것 같음
+        // TODO: 잘못된 사용자명 입력 시 예외 처리
         if (creator == null) {
             for (Schedule schedule : schedules) {
                 result.add(new GetScheduleResponse(
@@ -89,6 +90,7 @@ public class ScheduleService {
      * @param password Request 파라미터로 비밀번호 받기(필수)
      * @param request HTTP의 body로 전달된 내용을 request DTO로 받아오기
      * @return 수정사항 적용 후 response DTO에 담아서 반환
+     * @throws IllegalStateException 비밀번호 불일치 시
      */
     @Transactional
     public UpdateScheduleResponse updateSchedule(Long scheduleId, String password, UpdateScheduleRequest request) {
@@ -113,6 +115,7 @@ public class ScheduleService {
      * @param scheduleId API Path로 일정ID 입력받기
      * @param password Request 파라미터로 비밀번호 받기(필수)
      * @return 반환값 없음
+     * @throws IllegalStateException 비밀번호 불일치 시
      */
     @Transactional
     public void deleteSchedule(Long scheduleId, String password) {
