@@ -2,8 +2,11 @@ package com.example.scheduleapp.service;
 
 import com.example.scheduleapp.dto.*;
 import com.example.scheduleapp.entity.Comment;
+import com.example.scheduleapp.exception.NotFoundSchedule;
 import com.example.scheduleapp.repository.CommentRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.crossstore.ChangeSetPersister;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,6 +25,9 @@ public class CommentService {
      */
     @Transactional
     public CreateCommentResponse createComment(Long scheduleId, CreateCommentRequest request) {
+        Boolean existId = commentRepository.existsById(scheduleId);
+        if (!existId) {throw new NotFoundSchedule("존재하지 않는 ID입니다.");}
+
         Comment comment = new Comment(
                 request.getComment(), request.getCommentCreator(), request.getCommentPassword(), scheduleId
         );

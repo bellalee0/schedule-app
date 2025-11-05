@@ -3,6 +3,7 @@ package com.example.scheduleapp.service;
 import com.example.scheduleapp.dto.*;
 import com.example.scheduleapp.entity.Schedule;
 import com.example.scheduleapp.exception.IncorrectPassword;
+import com.example.scheduleapp.exception.NotFoundSchedule;
 import com.example.scheduleapp.repository.CommentRepository;
 import com.example.scheduleapp.repository.ScheduleRepository;
 import lombok.RequiredArgsConstructor;
@@ -78,7 +79,7 @@ public class ScheduleService {
     @Transactional(readOnly = true)
     public GetOneScheduleResponse getOneSchedule(Long scheduleId) {
         Schedule schedule = scheduleRepository.findById(scheduleId)
-                .orElseThrow(() -> new IllegalStateException("존재하지 않는 ID입니다."));
+                .orElseThrow(() -> new NotFoundSchedule("존재하지 않는 ID입니다."));
         return new GetOneScheduleResponse(
                 schedule.getScheduleId(), schedule.getTitle(), schedule.getContents(), schedule.getCreator(), schedule.getCreatedAt(), schedule.getModifiedAt(), commentRepository.findByScheduleId(scheduleId)
         );
@@ -96,7 +97,7 @@ public class ScheduleService {
     @Transactional
     public UpdateScheduleResponse updateSchedule(Long scheduleId, String password, UpdateScheduleRequest request) {
         Schedule schedule = scheduleRepository.findById(scheduleId)
-                .orElseThrow(() -> new IllegalStateException("존재하지 않는 ID입니다."));
+                .orElseThrow(() -> new NotFoundSchedule("존재하지 않는 ID입니다."));
 
         if (Long.parseLong(password) == schedule.getPassword()) {
             schedule.update(request.getTitle(), request.getCreator());
@@ -121,7 +122,7 @@ public class ScheduleService {
     @Transactional
     public void deleteSchedule(Long scheduleId, String password) {
         Schedule schedule = scheduleRepository.findById(scheduleId)
-                .orElseThrow(() -> new IllegalStateException("존재하지 않는 ID입니다."));
+                .orElseThrow(() -> new NotFoundSchedule("존재하지 않는 ID입니다."));
 
         if (Long.parseLong(password) == schedule.getPassword()) {
             scheduleRepository.deleteById(scheduleId);
