@@ -8,5 +8,11 @@ import java.util.List;
 
 public interface CommentRepository extends JpaRepository<Comment, Long> {
 
+    /**
+     * 특정 ScheduleId의 댓글 찾기
+     *
+     * @param scheduleId 기준 scheduleId 입력
+     * @return 해당 댓글들을 각각 response DTO에 담아 리스트로 반환
+     */
     List<GetCommentResponse> findByScheduleId(Long scheduleId);
 }

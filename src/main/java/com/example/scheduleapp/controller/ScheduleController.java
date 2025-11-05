@@ -14,28 +14,50 @@ import java.util.List;
 public class ScheduleController {
     private final ScheduleService scheduleService;
 
-    // 일정 생성
+    /**
+     * 일정 생성하기
+     *
+     * @param request HTTP의 body로 전달된 내용을 request DTO로 받아오기
+     * @return Service의 create 실행 후 response DTO에 담아서 반환
+     */
     @PostMapping("/schedules")
     public ResponseEntity<CreateScheduleResponse> createSchedule(@RequestBody CreateScheduleRequest request) {
         CreateScheduleResponse result = scheduleService.create(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(result);
     }
 
-    // 일정 조회 (전체 일정 조회 or creator 입력 시 해당 creator의 일정 조회)
+    /**
+     * 일정 조회하기
+     *
+     * @param creator Request 파라미터로 작성자명 받기(선택)
+     * @return Service의 getAllSchedules 실행 후 response DTO에 담아서 반환
+     */
     @GetMapping("/schedules")
     public ResponseEntity<List<GetScheduleResponse>> getAllSchedules(@RequestParam(name = "creator", required = false) String creator) {
         List<GetScheduleResponse> result = scheduleService.getAllSchedules(creator);
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
-    // 입력받은 id의 일정 조회
+    /**
+     * 선택 일정 조회하기
+     *
+     * @param scheduleId API Path로 일정ID 입력받기
+     * @return Service의 getOneSchedule 실행 후 response DTO에 담아서 반환
+     */
     @GetMapping("/schedules/{scheduleId}")
     public ResponseEntity<GetOneScheduleResponse> getOneSchedule(@PathVariable Long scheduleId) {
         GetOneScheduleResponse result = scheduleService.getOneSchedule(scheduleId);
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
-    // 압력받은 id의 일정 수정
+    /**
+     * 선택 일정 수정하기
+     *
+     * @param scheduleId API Path로 일정ID 입력받기
+     * @param password Request 파라미터로 비밀번호 받기(필수)
+     * @param request HTTP의 body로 전달된 내용을 request DTO로 받아오기
+     * @return Service의 updateSchedule 실행 후 response DTO에 담아서 반환
+     */
     @PutMapping("schedules/{scheduleId}")
     public ResponseEntity<UpdateScheduleResponse> updateSchedule(
             @PathVariable Long scheduleId,
@@ -45,7 +67,13 @@ public class ScheduleController {
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
-    // 입력받은 id의 일정 삭제
+    /**
+     * 선택 일정 삭제하기
+     *
+     * @param scheduleId API Path로 일정ID 입력받기
+     * @param password Request 파라미터로 비밀번호 받기(필수)
+     * @return Void 클래스로 빈값 반환
+     */
     @DeleteMapping("schedules/{scheduleId}")
     public ResponseEntity<Void> deleteSchedule(
             @PathVariable Long scheduleId,
