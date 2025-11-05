@@ -3,7 +3,6 @@ package com.example.scheduleapp.service;
 import com.example.scheduleapp.dto.*;
 import com.example.scheduleapp.entity.Comment;
 import com.example.scheduleapp.repository.CommentRepository;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,7 +26,6 @@ public class CommentService {
                 request.getComment(), request.getCommentCreator(), request.getCommentPassword(), scheduleId
         );
 
-        // 해당 일정의 댓글 개수 확인
         if (commentRepository.findByScheduleId(scheduleId).size() < 10) {
             Comment savedComment = commentRepository.save(comment);
             return new CreateCommentResponse(
