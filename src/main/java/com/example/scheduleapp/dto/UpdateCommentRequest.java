@@ -9,4 +9,5 @@ import lombok.Getter;
 public class UpdateCommentRequest {
     private String comment;
     private String commentCreator;
+    private Long password;
 }

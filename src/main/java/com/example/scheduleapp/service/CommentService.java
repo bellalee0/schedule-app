@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -78,18 +79,17 @@ public class CommentService {
      * 선택 댓글 수정하기
      *
      * @param commentId API Path로 댓글ID 입력받기
-     * @param password Request 파라미터로 비밀번호 받기(필수)
      * @param request HTTP의 body로 전달된 내용을 request DTO로 받아오기
      * @return 수정사항 적용 후 response DTO에 담아서 변환
      * @throws NotFoundComment 존재하지 않는 ID 입력 시
      * @throws IncorrectPassword 비밀번호 불일치 시
      */
     @Transactional
-    public UpdateCommentResponse updateComment(Long commentId, String password, UpdateCommentRequest request) {
+    public UpdateCommentResponse updateComment(Long commentId, UpdateCommentRequest request) {
         Comment comment = commentRepository.findById(commentId)
                 .orElseThrow(() -> new NotFoundComment("존재하지 않는 ID입니다."));
 
-        if (Long.parseLong(password) == comment.getCommentPassword()) {
+        if (Objects.equals(request.getPassword(), comment.getCommentPassword())) {
             comment.update(request.getComment(), request.getCommentCreator());
             comment.setModiefiedAt(LocalDateTime.now());
         } else {
