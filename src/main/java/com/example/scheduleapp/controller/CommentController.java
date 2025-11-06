@@ -43,4 +43,19 @@ public class CommentController {
         UpdateCommentResponse result = commentService.updateComment(commentId, password, request);
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
+
+    /**
+     * 선택 댓글 삭제하기
+     *
+     * @param commentId API Path로 댓글ID 입력받기
+     * @param password Request 파라미터로 비밀번호 받기(필수)
+     * @return Void 클래스로 빈값 반환
+     */
+    @DeleteMapping("/schedules/comments/{commentId}")
+    public ResponseEntity<Void> deleteComment(
+            @PathVariable Long commentId,
+            @RequestParam(name = "password") String password) {
+        commentService.deleteComment(commentId, password);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
 }

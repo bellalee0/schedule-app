@@ -74,4 +74,25 @@ public class CommentService {
                 comment.getCommentId(), comment.getScheduleId(), comment.getComment(), comment.getCommentCreator(), comment.getCreatedAt(), comment.getModifiedAt()
         );
     }
+
+    /**
+     * 선택 댓글 삭제하기
+     *
+     * @param commentId API Path로 댓글ID 입력받기
+     * @param password Request 파라미터로 비밀번호 받기(필수)
+     * @return 반환값 없음
+     * @throws NotFoundComment 존재하지 않는 ID 입력 시
+     * @throws IncorrectPassword 비밀번호 불일치 시
+     */
+    @Transactional
+    public void deleteComment(Long commentId, String password) {
+        Comment comment = commentRepository.findById(commentId)
+                .orElseThrow(() -> new NotFoundComment("존재하지 않는 ID입니다."));
+
+        if (Long.parseLong(password) == comment.getCommentPassword()) {
+            commentRepository.deleteById(commentId);
+        } else {
+            throw new IncorrectPassword("비밀번호가 일치하지 않습니다.");
+        }
+    }
 }
