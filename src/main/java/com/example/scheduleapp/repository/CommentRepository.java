@@ -15,4 +15,11 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
      * @return 해당 댓글들을 각각 response DTO에 담아 리스트로 반환
      */
     List<GetCommentResponse> findByScheduleId(Long scheduleId);
+
+    /**
+     * 특정 ScheduleId의 댓글 삭제하기
+     *
+     * @param scheduleId 기준 scheduleId 입력
+     */
+    void deleteByScheduleId(Long scheduleId);
 }

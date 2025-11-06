@@ -131,6 +131,7 @@ public class ScheduleService {
 
         if (Long.parseLong(password) == schedule.getPassword()) {
             scheduleRepository.deleteById(scheduleId);
+            commentRepository.deleteByScheduleId(scheduleId);
         } else {
             throw new IncorrectPassword("비밀번호가 일치하지 않습니다.");
         }
