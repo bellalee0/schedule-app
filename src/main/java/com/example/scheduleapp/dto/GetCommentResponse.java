@@ -15,7 +15,7 @@ public class GetCommentResponse {
     private final LocalDateTime createdAt;
     private final LocalDateTime modifiedAt;
 
-    public GetCommentResponse(Long commentId, String comment, String commentCreator, Long commentPassword, LocalDateTime createdAt, LocalDateTime modifiedAt) {
+    public GetCommentResponse(Long commentId, String comment, String commentCreator, LocalDateTime createdAt, LocalDateTime modifiedAt) {
         this.commentId = commentId;
         this.comment = comment;
         this.commentCreator = commentCreator;
