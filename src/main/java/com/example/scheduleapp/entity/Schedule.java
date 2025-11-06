@@ -32,7 +32,12 @@ public class Schedule extends BaseEntity {
         this.password = password;
     }
 
-    // PUT(update) 진행 시, title, creator 수정
+    /**
+     * 일정 수정 메서드
+     *
+     * @param title 원하는 title
+     * @param creator 원하는 creator
+     */
     public void update(String title, String creator) {
         this.title = title;
         this.creator = creator;
