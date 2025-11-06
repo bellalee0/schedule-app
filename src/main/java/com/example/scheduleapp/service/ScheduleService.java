@@ -44,6 +44,7 @@ public class ScheduleService {
      *
      * @param creator Request 파라미터로 작성자명 받기(선택)
      * @return 수정일 기준 내림차순 정렬 후 response DTO에 리스트로 담아서 반환
+     * @throws NotFoundSchedule 존재하지 않는 사용자명 입력 시
      */
     @Transactional(readOnly = true)
     public List<GetScheduleResponse> getAllSchedules(String creator) {
@@ -76,6 +77,7 @@ public class ScheduleService {
      *
      * @param scheduleId API Path로 일정ID 입력받기
      * @return 해당 일정을 response DTO에 담아서 반환(해당 일정의 댓글 포함)
+     * @throws NotFoundSchedule 존재하지 않는 ID 입력 시
      */
     @Transactional(readOnly = true)
     public GetOneScheduleResponse getOneSchedule(Long scheduleId) {
@@ -93,6 +95,7 @@ public class ScheduleService {
      * @param password Request 파라미터로 비밀번호 받기(필수)
      * @param request HTTP의 body로 전달된 내용을 request DTO로 받아오기
      * @return 수정사항 적용 후 response DTO에 담아서 반환
+     * @throws NotFoundSchedule 존재하지 않는 ID 입력 시
      * @throws IllegalStateException 비밀번호 불일치 시
      */
     @Transactional
