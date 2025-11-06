@@ -32,7 +32,7 @@ public class CommentService {
      */
     @Transactional
     public CreateCommentResponse createComment(Long scheduleId, CreateCommentRequest request) {
-        Boolean existId = scheduleRepository.existsById(scheduleId);
+        boolean existId = scheduleRepository.existsById(scheduleId);
         if (!existId) {throw new NotFoundSchedule("존재하지 않는 ID입니다.");}
 
         Comment comment = new Comment(
