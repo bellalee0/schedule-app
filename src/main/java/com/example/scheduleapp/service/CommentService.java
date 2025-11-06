@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -45,6 +47,23 @@ public class CommentService {
         } else {
             throw new IllegalStateException("한 일정에 댓글은 10개까지만 작성 가능합니다.");
         }
+    }
+
+    /**
+     * 전체 댓글 조회하기
+     *
+     * @return response DTO에 댓글 담아 리스트로 반환
+     */
+    @Transactional
+    public List<GetCommentResponse> getAllComments() {
+        List<GetCommentResponse> results = new ArrayList<>();
+        List<Comment> comments = commentRepository.findAll();
+        for (Comment comment : comments) {
+            results.add(new GetCommentResponse(
+                    comment.getCommentId(),comment.getScheduleId(), comment.getComment(), comment.getCommentCreator(), comment.getCreatedAt(), comment.getModifiedAt()
+            ));
+        }
+        return results;
     }
 
     /**

@@ -10,13 +10,15 @@ import java.time.LocalDateTime;
 @Getter
 public class GetCommentResponse {
     private Long commentId;
+    private Long scheduleId;
     private String comment;
     private String commentCreator;
     private final LocalDateTime createdAt;
     private final LocalDateTime modifiedAt;
 
-    public GetCommentResponse(Long commentId, String comment, String commentCreator, LocalDateTime createdAt, LocalDateTime modifiedAt) {
+    public GetCommentResponse(Long commentId, Long scheduleId, String comment, String commentCreator, LocalDateTime createdAt, LocalDateTime modifiedAt) {
         this.commentId = commentId;
+        this.scheduleId = scheduleId;
         this.comment = comment;
         this.commentCreator = commentCreator;
         this.createdAt = createdAt;

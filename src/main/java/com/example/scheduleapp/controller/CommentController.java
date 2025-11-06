@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 public class CommentController {
@@ -25,6 +27,17 @@ public class CommentController {
             @RequestBody CreateCommentRequest request) {
         CreateCommentResponse result = commentService.createComment(scheduleId, request);
         return ResponseEntity.status(HttpStatus.CREATED).body(result);
+    }
+
+    /**
+     * 전체 댓글 조회하기
+     *
+     * @return reponse DTO에 댓글 담아 리스트로 반환
+     */
+    @GetMapping("/schedules/comments")
+    public ResponseEntity<List<GetCommentResponse>> getAllComments() {
+        List<GetCommentResponse> result = commentService.getAllComments();
+        return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
     /**
