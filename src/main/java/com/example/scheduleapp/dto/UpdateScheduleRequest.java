@@ -9,4 +9,5 @@ import lombok.Getter;
 public class UpdateScheduleRequest {
     private String title;
     private String creator;
+    private Long password;
 }

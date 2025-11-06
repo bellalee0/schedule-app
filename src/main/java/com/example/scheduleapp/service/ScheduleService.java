@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -91,18 +92,17 @@ public class ScheduleService {
      * 선택 일정 수정하기
      *
      * @param scheduleId API Path로 일정ID 입력받기
-     * @param password Request 파라미터로 비밀번호 받기(필수)
      * @param request HTTP의 body로 전달된 내용을 request DTO로 받아오기
      * @return 수정사항 적용 후 response DTO에 담아서 반환
      * @throws NotFoundSchedule 존재하지 않는 ID 입력 시
      * @throws IllegalStateException 비밀번호 불일치 시
      */
     @Transactional
-    public UpdateScheduleResponse updateSchedule(Long scheduleId, String password, UpdateScheduleRequest request) {
+    public UpdateScheduleResponse updateSchedule(Long scheduleId, UpdateScheduleRequest request) {
         Schedule schedule = scheduleRepository.findById(scheduleId)
                 .orElseThrow(() -> new NotFoundSchedule("존재하지 않는 ID입니다."));
 
-        if (Long.parseLong(password) == schedule.getPassword()) {
+        if (Objects.equals(request.getPassword(), schedule.getPassword())) {
             schedule.update(request.getTitle(), request.getCreator());
             schedule.setModiefiedAt(LocalDateTime.now());
         } else {

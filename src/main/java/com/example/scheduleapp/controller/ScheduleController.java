@@ -54,16 +54,14 @@ public class ScheduleController {
      * 선택 일정 수정하기
      *
      * @param scheduleId API Path로 일정ID 입력받기
-     * @param password Request 파라미터로 비밀번호 받기(필수)
      * @param request HTTP의 body로 전달된 내용을 request DTO로 받아오기
      * @return Service의 updateSchedule 실행 후 response DTO에 담아서 반환
      */
     @PutMapping("schedules/{scheduleId}")
     public ResponseEntity<UpdateScheduleResponse> updateSchedule(
             @PathVariable Long scheduleId,
-            @RequestParam(name = "password") String password,
             @RequestBody UpdateScheduleRequest request) {
-        UpdateScheduleResponse result = scheduleService.updateSchedule(scheduleId, password, request);
+        UpdateScheduleResponse result = scheduleService.updateSchedule(scheduleId, request);
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
