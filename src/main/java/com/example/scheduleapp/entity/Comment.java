@@ -31,4 +31,15 @@ public class Comment extends BaseEntity {
         this.commentPassword = commentPassword;
         this.scheduleId = scheduleId;
     }
+
+    /**
+     * 댓글 수정 메서드
+     *
+     * @param comment 원하는 comment
+     * @param commentCreator 원하는 commentCreator
+     */
+    public void update(String comment, String commentCreator) {
+        this.comment = comment;
+        this.commentCreator = commentCreator;
+    }
 }

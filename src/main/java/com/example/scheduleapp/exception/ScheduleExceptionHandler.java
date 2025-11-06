@@ -44,6 +44,22 @@ public class ScheduleExceptionHandler {
     }
 
     /**
+     * NotFoundComment 예외 처리
+     *
+     * @param ex 예외 이름(NotFoundComment)
+     * @return 예외의 message와 NOT_FOUND 상태코드 반환
+     */
+    @ExceptionHandler(NotFoundComment.class)
+    public final ResponseEntity<Map<String, Object>> handleNotFoundComment(NotFoundComment ex) {
+        Map<String, Object> response = new HashMap<>();
+        response.put("timestamp", new Date());
+        response.put("status", HttpStatus.NOT_FOUND.value());
+        response.put("error", HttpStatus.NOT_FOUND);
+        response.put("message", ex.getMessage());
+        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+    }
+
+    /**
      *  Exception 클래스 내 모든 예외 처리
      *
      * @param ex 예외 이름

@@ -5,10 +5,7 @@ import com.example.scheduleapp.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -28,5 +25,22 @@ public class CommentController {
             @RequestBody CreateCommentRequest request) {
         CreateCommentResponse result = commentService.createComment(scheduleId, request);
         return ResponseEntity.status(HttpStatus.CREATED).body(result);
+    }
+
+    /**
+     *  선택 댓글 수정하기
+     *
+     * @param commentId API Path로 댓글ID 입력받기
+     * @param password Request 파라미터로 비밀번호 받기(필수)
+     * @param request HTTP의 body로 전달된 내용을 request DTO로 받아오기
+     * @return Service의 updateComment 실행 후 response DTO에 담아서 반환
+     */
+    @PutMapping("/schedules/comments/{commentId}")
+    public ResponseEntity<UpdateCommentResponse> updateComment(
+            @PathVariable Long commentId,
+            @RequestParam(name = "password") String password,
+            @RequestBody UpdateCommentRequest request) {
+        UpdateCommentResponse result = commentService.updateComment(commentId, password, request);
+        return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 }
