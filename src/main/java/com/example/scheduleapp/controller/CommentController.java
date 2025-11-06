@@ -36,7 +36,7 @@ public class CommentController {
      */
     @GetMapping("/schedules/comments")
     public ResponseEntity<List<GetCommentResponse>> getAllComments(
-            @RequestParam(name = "scheduleId", required = false) String scheduleId
+            @RequestParam(name = "scheduleId", required = false) Long scheduleId
     ) {
         List<GetCommentResponse> result = commentService.getAllComments(scheduleId);
         return ResponseEntity.status(HttpStatus.OK).body(result);

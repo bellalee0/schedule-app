@@ -58,7 +58,7 @@ public class CommentService {
      * @throws NotFoundComment 존재하지 않는 일정ID 입력 시
      */
     @Transactional
-    public List<GetCommentResponse> getAllComments(String scheduleId) {
+    public List<GetCommentResponse> getAllComments(Long scheduleId) {
         List<GetCommentResponse> results = new ArrayList<>();
         List<Comment> comments = commentRepository.findAll();
         if (scheduleId == null) {
@@ -68,10 +68,12 @@ public class CommentService {
                 ));
             }
             return results;
-        } else if (commentRepository.existsByScheduleId(Long.parseLong(scheduleId))) {
-            return commentRepository.findByScheduleId(Long.parseLong(scheduleId));
+        } else if (commentRepository.existsByScheduleId(scheduleId)) {
+            return commentRepository.findByScheduleId(scheduleId);
+        } else if (scheduleRepository.existsById(scheduleId) && !commentRepository.existsByScheduleId(scheduleId)) {
+            throw new NotFoundComment("해당 일정에 댓글이 존재하지 않습니다.");
         } else {
-            throw new NotFoundComment("존재하지 않는 ID입니다.");
+            throw new NotFoundSchedule("존재하지 않는 ID입니다.");
         }
     }
 
