@@ -55,7 +55,8 @@ public class CommentService {
      *
      * @param scheduleId Request 파라미터로 일정ID 받기(선택)
      * @return response DTO에 댓글 담아 리스트로 반환
-     * @throws NotFoundComment 존재하지 않는 일정ID 입력 시
+     * @throws NotFoundComment 선택힌 일정에 댓글이 없을 시
+     * @throws NotFoundSchedule 존재하지 않는 일정ID 입력 시
      */
     @Transactional
     public List<GetCommentResponse> getAllComments(Long scheduleId) {
@@ -108,7 +109,6 @@ public class CommentService {
      *
      * @param commentId API Path로 댓글ID 입력받기
      * @param password Request 파라미터로 비밀번호 받기(필수)
-     * @return 반환값 없음
      * @throws NotFoundComment 존재하지 않는 ID 입력 시
      * @throws IncorrectPassword 비밀번호 불일치 시
      */
