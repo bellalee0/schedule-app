@@ -8,6 +8,9 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 
+/**
+ *  JPA Auditing을 사용하는 공통 필드 관리용 클래스
+ */
 @Getter
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)

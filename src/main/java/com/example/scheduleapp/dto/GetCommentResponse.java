@@ -4,6 +4,9 @@ import lombok.Getter;
 
 import java.time.LocalDateTime;
 
+/**
+ *  댓글 조회 응답 처리 DTO (댓글Id, 댓글, 작성자, 생성일, 수정일)
+ */
 @Getter
 public class GetCommentResponse {
     private Long commentId;

@@ -118,6 +118,7 @@ public class ScheduleService {
      * @param scheduleId API Path로 일정ID 입력받기
      * @param password Request 파라미터로 비밀번호 받기(필수)
      * @return 반환값 없음
+     * @throws NotFoundSchedule 존재하지 않는 ID 입력 시
      * @throws IllegalStateException 비밀번호 불일치 시
      */
     @Transactional

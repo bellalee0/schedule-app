@@ -5,6 +5,9 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+/**
+ *  schedules 테이블 매핑용 클래스(생성 시, 일정 제목, 일정 내용, 작성자, 비밀번호 포함)
+ */
 @Getter
 @Entity
 @Table(name = "schedules")

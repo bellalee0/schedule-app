@@ -5,6 +5,9 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+/**
+ *  comments 테이블 매핑용 클래스(생성 시, 댓글, 작성자, 비밀번호, 일정ID 포함)
+ */
 @Getter
 @Entity
 @Table(name = "comments")

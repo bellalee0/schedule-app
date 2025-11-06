@@ -21,6 +21,7 @@ public class CommentService {
      * @param scheduleId API Path로 일정ID 입력받기
      * @param request HTTP의 body로 전달된 내용을 request DTO로 받아오기
      * @return 리포지토리에 저장 후 response DTO에 담아서 반환
+     * @throws NotFoundSchedule 존재하지 않는 ID 입력 시
      * @throws IllegalStateException 해당 일정에 저장된 댓글이 10개 이상일 때
      */
     @Transactional
