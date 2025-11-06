@@ -47,7 +47,6 @@ public class CommentService {
         }
     }
 
-    // TODO: 일정 단건 조회시 수정된 댓글로 안보임
     /**
      * 선택 댓글 수정하기
      *
