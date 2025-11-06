@@ -23,4 +23,4 @@
 [API 명세서](https://road-cartoon-1a1.notion.site/API-2a11d6e7a68c808093cef496b4aba825?source=copy_link)
 
 ## ERD
-<img width="980" height="259" alt="Image" src="https://github.com/user-attachments/assets/7ac37195-bf52-412a-bf9b-04ff0a79d790" />
+<img width="980" height="259" alt="Image" src="https://github.com/user-attachments/assets/83ad2d81-3f8d-40aa-b3e9-f6486cc4ddb9" />
