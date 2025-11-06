@@ -111,11 +111,11 @@ public class CommentService {
      * @throws IncorrectPassword 비밀번호 불일치 시
      */
     @Transactional
-    public void deleteComment(Long commentId, String password) {
+    public void deleteComment(Long commentId, Long password) {
         Comment comment = commentRepository.findById(commentId)
                 .orElseThrow(() -> new NotFoundComment("존재하지 않는 ID입니다."));
 
-        if (Long.parseLong(password) == comment.getCommentPassword()) {
+        if (Objects.equals(password, comment.getCommentPassword())) {
             commentRepository.deleteById(commentId);
         } else {
             throw new IncorrectPassword("비밀번호가 일치하지 않습니다.");

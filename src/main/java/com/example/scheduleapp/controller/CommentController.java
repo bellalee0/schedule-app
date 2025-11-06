@@ -67,7 +67,7 @@ public class CommentController {
     @DeleteMapping("/schedules/comments/{commentId}")
     public ResponseEntity<Void> deleteComment(
             @PathVariable Long commentId,
-            @RequestParam(name = "password") String password) {
+            @RequestParam(name = "password") Long password) {
         commentService.deleteComment(commentId, password);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }

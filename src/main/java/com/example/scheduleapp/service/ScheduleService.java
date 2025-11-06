@@ -124,11 +124,11 @@ public class ScheduleService {
      * @throws IllegalStateException 비밀번호 불일치 시
      */
     @Transactional
-    public void deleteSchedule(Long scheduleId, String password) {
+    public void deleteSchedule(Long scheduleId, Long password) {
         Schedule schedule = scheduleRepository.findById(scheduleId)
                 .orElseThrow(() -> new NotFoundSchedule("존재하지 않는 ID입니다."));
 
-        if (Long.parseLong(password) == schedule.getPassword()) {
+        if (Objects.equals(password, schedule.getPassword())) {
             scheduleRepository.deleteById(scheduleId);
             commentRepository.deleteByScheduleId(scheduleId);
         } else {
