@@ -51,7 +51,6 @@ public class ScheduleService {
         List<GetScheduleResponse> result = new ArrayList<>();
         List<Schedule> schedules = scheduleRepository.findAll();
 
-        // TODO: 더 깔끔하게 만들 수 있을 것 같음
         if (creator == null) {
             for (Schedule schedule : schedules) {
                 result.add(new GetScheduleResponse(
