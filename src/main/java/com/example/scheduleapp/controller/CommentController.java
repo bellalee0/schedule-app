@@ -31,12 +31,14 @@ public class CommentController {
 
     /**
      * 전체 댓글 조회하기
-     *
+     * @param scheduleId Request 파라미터로 일정ID 받기(선택)
      * @return reponse DTO에 댓글 담아 리스트로 반환
      */
     @GetMapping("/schedules/comments")
-    public ResponseEntity<List<GetCommentResponse>> getAllComments() {
-        List<GetCommentResponse> result = commentService.getAllComments();
+    public ResponseEntity<List<GetCommentResponse>> getAllComments(
+            @RequestParam(name = "scheduleId", required = false) String scheduleId
+    ) {
+        List<GetCommentResponse> result = commentService.getAllComments(scheduleId);
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 

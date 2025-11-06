@@ -52,18 +52,26 @@ public class CommentService {
     /**
      * 전체 댓글 조회하기
      *
+     * @param scheduleId Request 파라미터로 일정ID 받기(선택)
      * @return response DTO에 댓글 담아 리스트로 반환
+     * @throws NotFoundComment 존재하지 않는 일정ID 입력 시
      */
     @Transactional
-    public List<GetCommentResponse> getAllComments() {
+    public List<GetCommentResponse> getAllComments(String scheduleId) {
         List<GetCommentResponse> results = new ArrayList<>();
         List<Comment> comments = commentRepository.findAll();
-        for (Comment comment : comments) {
-            results.add(new GetCommentResponse(
-                    comment.getCommentId(),comment.getScheduleId(), comment.getComment(), comment.getCommentCreator(), comment.getCreatedAt(), comment.getModifiedAt()
-            ));
+        if (scheduleId == null) {
+            for (Comment comment : comments) {
+                results.add(new GetCommentResponse(
+                        comment.getCommentId(),comment.getScheduleId(), comment.getComment(), comment.getCommentCreator(), comment.getCreatedAt(), comment.getModifiedAt()
+                ));
+            }
+            return results;
+        } else if (commentRepository.existsByScheduleId(Long.parseLong(scheduleId))) {
+            return commentRepository.findByScheduleId(Long.parseLong(scheduleId));
+        } else {
+            throw new NotFoundComment("존재하지 않는 ID입니다.");
         }
-        return results;
     }
 
     /**

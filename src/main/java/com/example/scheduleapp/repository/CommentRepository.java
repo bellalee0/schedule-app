@@ -22,4 +22,12 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
      * @param scheduleId 기준 scheduleId 입력
      */
     void deleteByScheduleId(Long scheduleId);
+
+    /**
+     * 특정 ScheduleId의 댓글 존재 여부 확인
+     *
+     * @param scheduleId 기준 scheduleId 입력
+     * @return 댓글이 있을 경우 true 반환
+     */
+    boolean existsByScheduleId(Long scheduleId);
 }
